@@ -213,27 +213,36 @@ function VendorRestaurant() {
 
       <div style={styles.main}>
         {/* Restaurant Info */}
-        <div style={styles.section}>
-          <h2>{restaurant.name}</h2>
-          <p>{restaurant.description}</p>
-          <p><strong>Category:</strong> {restaurant.category}</p>
-        </div>
+        {restaurant && (
+          <div style={styles.section}>
+            <h2>{restaurant.name}</h2>
+            <p>{restaurant.description}</p>
+            <p><strong>Category:</strong> {restaurant.category}</p>
+          </div>
+        )}
+        
+        {!restaurant && !loading && (
+          <div style={styles.section}>
+            <p>Loading restaurant information...</p>
+          </div>
+        )}
 
         {/* Menu Management */}
-        <div style={styles.section}>
-          <div style={styles.sectionHeader}>
-            <h2>Menu Items</h2>
-            <button 
-              onClick={() => {
-                setShowMenuForm(true);
-                setEditingItem(null);
-                setMenuForm({ name: '', description: '', price: '', category: '' });
-              }} 
-              style={styles.addBtn}
-            >
-              Add Menu Item
-            </button>
-          </div>
+        {restaurant && (
+          <div style={styles.section}>
+            <div style={styles.sectionHeader}>
+              <h2>Menu Items</h2>
+              <button 
+                onClick={() => {
+                  setShowMenuForm(true);
+                  setEditingItem(null);
+                  setMenuForm({ name: '', description: '', price: '', category: '' });
+                }} 
+                style={styles.addBtn}
+              >
+                Add Menu Item
+              </button>
+            </div>
 
           {showMenuForm && (
             <div style={styles.formContainer}>
@@ -345,6 +354,7 @@ function VendorRestaurant() {
             </div>
           )}
         </div>
+        )}
       </div>
     </div>
   );
